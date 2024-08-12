@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vmName": {
+        "value": "myWordPressVM"
+      },
+      "adminUsername": {
+        "value": "adminUser"
+      },
+      "adminPassword": {
+        "value": "SecurePassword123"
+      },
+      "networkInterfaceName": {
+        "value": "myNetworkInterface"
+      },
+      "virtualNetworkName": {
+        "value": "myVNet"
+      },
+      "subnetName": {
+        "value": "mySubNet"
+      },
+      "scriptUri": {
+        "value": "https://<your_storage_account>.blob.core.windows.net/scripts/installWordpress.sh"
+      },
+      "customData": {
+        "value": "#cloud-config\nruncmd:\n  - echo 'Custom data script executed'"
+      }
+    }
+  }
+  
