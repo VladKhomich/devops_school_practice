@@ -20,6 +20,12 @@
       "subnetName": {
         "value": "mySubNet"
       },
+      "publicIpName": {
+        "value": "myPublicIp"
+      },
+      "domainNameLabel": {
+        "value": "mydomainname"
+      },
       "scriptUri": {
         "value": "https://<your_storage_account>.blob.core.windows.net/scripts/installWordpress.sh"
       },
