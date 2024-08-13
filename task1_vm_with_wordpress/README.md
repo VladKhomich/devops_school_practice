@@ -54,3 +54,8 @@ https://www.dutchdatadude.com/fixing-subscription-is-not-registered-with-nrp-err
 ### Issue With Storage Account Container Creation
 There was an issue stated {"created":false} with no explanation during creation of a Container inside an existing Storage Account. Fixed by adding ` --allow-blob-public-access`
 
+### Recent Ubuntu Images
+Newer Ubuntu releases (after 18.04 LTS) are published under dedicated offers.
+https://askubuntu.com/questions/1460657/os-name-for-22-04-lts-in-azure-templates
+https://stackoverflow.com/questions/77649541/azure-sku-and-offer-codes-for-ubuntu-20-04-and-22-04-lts-for-arm
+
