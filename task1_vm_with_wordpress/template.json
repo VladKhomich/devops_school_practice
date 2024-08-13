@@ -100,6 +100,27 @@
           ]
         }
       }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "apiVersion": "2022-03-01",
+      "name": "[concat(parameters('vmName'), '/customScriptExtension')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.1",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+            "[parameters('scriptUri')]"
+          ],
+          "commandToExecute": "[concat('sh ', parameters('scriptFileName'))]"
+        }
+      }
     }
   ],
   "parameters": {
@@ -122,6 +143,9 @@
       "type": "string"
     },
     "scriptUri": {
+      "type": "string"
+    },
+    "scriptFileName": {
       "type": "string"
     },
     "customData": {

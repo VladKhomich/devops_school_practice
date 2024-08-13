@@ -9,6 +9,8 @@ The backup name should include the date of its creation - backup_01.12.2023_12.5
  Store the backup in the /opt/backups_wordpress directory.	
 
 ## My solution
+
+```
 VM_NAME="myWordPressVM"
 RESOURCE_GROUP="devopsschool1"
 STORAGE_ACCOUNT="devopsschool1sa"
@@ -36,6 +38,8 @@ az security vm jit-policy set \
 vm_ip=$(az vm show --resource-group $RESOURCE_GROUP --name $VM_NAME --show-details --query publicIps -o tsv)
 ssh adminUser@$vm_ip
 
+```
+
 ### Wordpress Script Template
 
 Draft: use a file inside VM
@@ -44,6 +48,7 @@ Draft: use a file inside VM
 2. chmod +x install_wordpress.sh
 3. ./install_wordpress.sh
 
+```
 DB_NAME="wordpress"
 DB_USER="wordpressuser"
 DB_PASSWORD="YourStrongPassword"
@@ -101,7 +106,7 @@ sudo systemctl restart apache2
 
 echo "WordPress has been installed. Please complete the installation by visiting site url in your web browser."
 
-
+```
 
 
 
@@ -113,6 +118,14 @@ echo "WordPress has been installed. Please complete the installation by visiting
 > 💡Remove JIT access
 > 
 > Can I restrict JIT access when I'm done?
+
+> ⚠️ ARM Template cannot create Resource Groups
+>
+> For now ARM Template doesn't support creation of RG. It should be created separately.
+
+> ⚠️ ARM Template cannot upload blobs to Storage Account
+>
+> For now ARM Template doesn't support creation of RG. It should be created separately.
 
 ## Notes and Issues
 

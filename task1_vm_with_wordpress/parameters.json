@@ -27,7 +27,10 @@
         "value": "mydomainname"
       },
       "scriptUri": {
-        "value": "https://<your_storage_account>.blob.core.windows.net/scripts/installWordpress.sh"
+        "value": "https://devopsschool1sa.blob.core.windows.net/devopsschool1container/install_wordpress.sh"
+      },
+      "scriptFileName": {
+        "value": "install_wordpress.sh"
       },
       "customData": {
         "value": "#cloud-config\nruncmd:\n  - echo 'Custom data script executed'"
