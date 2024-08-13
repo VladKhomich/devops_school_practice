@@ -11,12 +11,20 @@ The backup name should include the date of its creation - backup_01.12.2023_12.5
 ## My solution
 VM_NAME="myWordPressVM"
 RESOURCE_GROUP="devopsschool1"
+STORAGE_ACCOUNT="devopsschool1sa"
+SA_CONTAINER="devopsschool1container"
 LOCATION="polandcentral"
 TEMPLATE_FILE="template.json"
 PARAMETERS_FILE="parameters.json"
+VM_SETUP_SCRIPT="install_wordpress.sh"
 TAGS="Area=DevOpsSchool"
 
 az group create --name $RESOURCE_GROUP --location $LOCATION --tags $TAGS
+az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --location $LOCATION --sku Standard_LRS --allow-blob-public-access
+
+az storage container create --name $SA_CONTAINER --account-name $STORAGE_ACCOUNT --public-access blob
+az storage blob upload --account-name $STORAGE_ACCOUNT --container-name $SA_CONTAINER --name $VM_SETUP_SCRIPT --file $VM_SETUP_SCRIPT
+
 az deployment group create --resource-group $RESOURCE_GROUP --template-file $TEMPLATE_FILE --parameters $PARAMETERS_FILE
 
 az security vm jit-policy set \
@@ -30,19 +38,16 @@ ssh adminUser@$vm_ip
 
 ### Wordpress Script Template
 
-#!/bin/bash
-
 Draft: use a file inside VM
+
 1. nano install_wordpress.sh
 2. chmod +x install_wordpress.sh
 3. ./install_wordpress.sh
-
 
 DB_NAME="wordpress"
 DB_USER="wordpressuser"
 DB_PASSWORD="YourStrongPassword"
 DB_ROOT_PASSWORD="YourRootPassword"
-SITE_URL="http://74.248.96.176"
 
 sudo apt update && sudo apt upgrade -y
 
@@ -94,7 +99,8 @@ sudo a2ensite wordpress.conf
 sudo a2enmod rewrite
 sudo systemctl restart apache2
 
-echo "WordPress has been installed. Please complete the installation by visiting $SITE_URL in your web browser."
+echo "WordPress has been installed. Please complete the installation by visiting site url in your web browser."
+
 
 
 
