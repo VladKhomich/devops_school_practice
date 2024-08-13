@@ -10,7 +10,17 @@ Create a Dockerfile with multi-stage build (first stage node build static, secon
 Run the application in a docker container on host port 84.
 Result - http://localhost:84 - frontend page
 
-## Idea
+## 💡 Ideas
 
-💡 Deploy everything to Azure Container Apps
+Deploy everything to Azure Container Apps
+
+## Solution
+
+`sh solution.sh`
+
+### Description
+1. get PAT from file
+2. clone last revision of remote repo to temp folder
+3. build container
+4. start container
 

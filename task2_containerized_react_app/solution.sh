@@ -17,5 +17,9 @@ fi
 FULL_REPO_URL="https://$GIT_USER_NAME:${GITLAB_TOKEN}@$REPO_URL"
 git clone --depth=1 $FULL_REPO_URL $REPO_DIR
 
+# docker step
+docker build -t react-app-nginx .
+docker run -p 84:80 react-app-nginx
+
 # clean up (remove temp directory)
 rm -rf $TEMP_DIR
