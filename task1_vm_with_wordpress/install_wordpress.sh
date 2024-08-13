@@ -2,6 +2,8 @@ DB_NAME="wordpress"
 DB_USER="wordpressuser"
 DB_PASSWORD="YourStrongPassword"
 DB_ROOT_PASSWORD="YourRootPassword"
+BACKUP_DIR="/opt/backups_wordpress"
+SCRIPT_PATH="/opt/backup_mysql.sh"
 
 echo "packages update"
 sudo apt update && sudo apt upgrade -y
@@ -63,4 +65,25 @@ sudo a2ensite wordpress.conf
 sudo a2enmod rewrite
 sudo systemctl restart apache2
 
-echo "wordpress has been installed. complete the installation by visiting site url in your web browser"
+echo "wordpress was installed. navigate to site_url/wordpress to verify"
+
+echo "create backup directory"
+sudo mkdir -p $BACKUP_DIR
+sudo chown -R $(whoami):$(whoami) $BACKUP_DIR
+
+echo "create backup script"
+cat <<EOL > $SCRIPT_PATH
+#!/bin/bash
+CURRENT_DATE=\$(date +"%d.%m.%Y_%H.%M")
+BACKUP_FILE="backup_\${CURRENT_DATE}.sql"
+mysqldump -u $DB_USER -p$DB_PASSWORD $DB_NAME > $BACKUP_DIR/\$BACKUP_FILE
+echo "Backup \$BACKUP_FILE created successfully in $BACKUP_DIR."
+EOL
+
+echo "make backup script executable"
+chmod +x $SCRIPT_PATH
+
+echo "backup scheduling with cron"
+(crontab -l 2>/dev/null; echo "0 3 * * 1-5 $SCRIPT_PATH") | crontab -
+
+echo "backup script was created and sheduled to run"
