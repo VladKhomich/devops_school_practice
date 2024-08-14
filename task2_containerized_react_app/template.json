@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "acrName": {
+        "type": "string",
+        "defaultValue": "devopsschoolacr"
+      },
+      "containerName": {
+        "type": "string",
+        "defaultValue": "devopsschool2"
+      },
+      "imageName": {
+        "type": "string",
+        "defaultValue": "react-app-nginx:latest"
+      },
+      "dnsNameLabel": {
+        "type": "string",
+        "defaultValue": "devopsschool2"
+      }
+    },
+    "resources": [
+      {
+        "type": "Microsoft.ContainerInstance/containerGroups",
+        "apiVersion": "2021-03-01",
+        "location": "[resourceGroup().location]",
+        "name": "[parameters('containerName')]",
+        "properties": {
+          "containers": [
+            {
+              "name": "[parameters('containerName')]",
+              "properties": {
+                "image": "[concat(parameters('acrName'), '.azurecr.io/', parameters('imageName'))]",
+                "resources": {
+                  "requests": {
+                    "cpu": 1,
+                    "memoryInGb": 1.5
+                  }
+                },
+                "ports": [
+                  {
+                    "port": 84
+                  }
+                ]
+              }
+            }
+          ],
+          "osType": "Linux",
+          "restartPolicy": "Always",
+          "ipAddress": {
+            "type": "Public",
+            "dnsNameLabel": "[parameters('dnsNameLabel')]",
+            "ports": [
+              {
+                "protocol": "tcp",
+                "port": 84
+              }
+            ]
+          },
+          "imageRegistryCredentials": [
+            {
+              "server": "[concat(parameters('acrName'), '.azurecr.io')]",
+              "username": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), '2019-05-01').username]",
+              "password": "[listCredentials(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), '2019-05-01').passwords[0].value]"
+            }
+          ]
+        }
+      }
+    ]
+  }
+  
