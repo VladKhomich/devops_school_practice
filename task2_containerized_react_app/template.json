@@ -39,7 +39,7 @@
                 },
                 "ports": [
                   {
-                    "port": 84
+                    "port": 80
                   }
                 ]
               }
@@ -53,7 +53,7 @@
             "ports": [
               {
                 "protocol": "tcp",
-                "port": 84
+                "port": 80
               }
             ]
           },
