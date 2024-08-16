@@ -16,6 +16,7 @@ Make sure you are logged into a valid account with `az account show`.
 In case you cannot login with side auth provider (e.g. github) use `az login --use-device-code`.
 
 ### Description
+![task1_diagram](../images/task1_diagram.png)
 In order to make the solution more interesting Microsoft Azure was selected as a cloud provider for compute resources. In order to gain relevant skills it was decided to use an [ARM Template](./template.json) to automate resource provisioning. Since it's not possible to create Resource Group via ARM Template, it is created via Azure CLI commands. Additionally, ARM Template includes configuring the newly created VM with a side script. It was decided to put it into a Storage Account service. Since this is not possible to do with ARM Templates, it's configured with Azure CLI as well.
 ARM Template itself uses [external parametes file](./parameters.json) and does steps listed below:
 - creates a Public Ip service
