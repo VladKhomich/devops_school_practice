@@ -1,13 +1,8 @@
-# define variables
-RESOURCE_GROUP="devopsschool2"
-LOCATION="polandcentral"
-TAGS="Area=DevOpsSchool"
-ACR_NAME="devopsschoolacr"
-IMAGE_NAME="react-app-nginx"
-PUBLIC_IMAGE="$ACR_NAME.azurecr.io/$IMAGE_NAME:latest"
-DNS_LABEL="devopsschool2"
-CONTAINER_NAME="devopsschool2"
-TEMPLATE_FILE="template.json"
+# import parameters
+source "./parameters.sh"
+
+# prepare image locally
+sh solution.local.sh --local-run skip
 
 # function to check if the image is ready
 check_image_ready() {
@@ -36,10 +31,9 @@ docker tag $IMAGE_NAME $PUBLIC_IMAGE
 docker push $PUBLIC_IMAGE
 az acr credential show --name devopsschoolacr
 az acr login --name $ACR_NAME
-# az deployment group create --resource-group $RESOURCE_GROUP --template-file $TEMPLATE_FILE
 
 if check_image_ready; then
-  az deployment group create --resource-group $RESOURCE_GROUP --template-file $TEMPLATE_FILE
+  az deployment group create --resource-group $RESOURCE_GROUP --template-file $TEMPLATE_FILE --parameters acrName=$ACR_NAME containerName=$CONTAINER_NAME imageName=$IMAGE_NAME dnsNameLabel=$DNS_LABEL
 else
   echo "deployment failed because the image is not ready at ACR"
   exit 1
@@ -50,5 +44,3 @@ fi
 
 # cleanup (remove RG)
 # az group delete --name $RESOURCE_GROUP
-
-#Before fetching credentials enable admin
