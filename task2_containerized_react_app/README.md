@@ -22,6 +22,7 @@ Result - http://localhost:84 - frontend page
 
 ### Description 📝
 ![task2_diagram](../images/task2_diagram.png)
+
 In order to make the solution more interesting and to gain additional practice-oriented experience with Azure it was 
 decided to deploy everything to Azure with usage of Azure Container Instance.
 

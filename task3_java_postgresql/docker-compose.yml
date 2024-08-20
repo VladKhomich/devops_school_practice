@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+    ports:
+      - "5432:5432"
+
+  java-app:
+    build: ./
+    container_name: java-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - my_network
+    environment:
+      QA_COURSE_01_RDS_DB_NAME: mydatabase
+      QA_COURSE_01_RDS_USERNAME: myuser
+      QA_COURSE_01_RDS_PASSWORD: mypassword
+      QA_COURSE_01_RDS_DB_HOST: "postgres"
+
+volumes:
+  postgres_data:
+    
+networks:
+  my_network:
