@@ -25,6 +25,19 @@ Setup project localy
 
 The task is solved (or at least it's planned to be solved) in two variations: local setup and Microsoft Azure)
 
+### Cloud-based Solution
+
+💡 Draft ideas:
+
+- clone repo from git to my local machine with PAT
+- containerize it (create image of java app and postgress db)
+- create azure RG
+- create azure ACR
+- create AKS
+- push containers into ACR
+- attach ACR to AKS
+- apply manifest
+
 ### Local Solution 💻
 
 (make sure to add your PAT as it's mentioned at pat.token.default)
@@ -48,3 +61,16 @@ Then the website can be accessed [locally](http://localhost:8080/swagger-ui/inde
 
 ## Notes and Ideas 💡
 
+[Deploy AKS with CLI](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli)
+
+get credentials for AKS
+`az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME`
+
+get nodes of AKS
+`kubectl get nodes`
+
+apply manifest:
+`kubectl apply -f manifest.yaml`
+
+get pod logs
+`kubectl logs <postgres-pod-name>`
