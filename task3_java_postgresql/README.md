@@ -23,20 +23,45 @@ Setup project localy
 
 ## Solution 🧩
 
-The task is solved (or at least it's planned to be solved) in two variations: local setup and Microsoft Azure)
+The task is solved in two variations: local setup and Microsoft Azure
 
 ### Cloud-based Solution
 
-💡 Draft ideas:
+`sh solution.azure.sh`
 
-- clone repo from git to my local machine with PAT
-- containerize it (create image of java app and postgress db)
-- create azure RG
-- create azure ACR
-- create AKS
-- push containers into ACR
-- attach ACR to AKS
-- apply manifest
+#### Description 📝
+
+![task3_diagram](../images/task3_diagram.png)
+
+In order to make the solution more interesting, it was decided to implement a comprehensive solution with a huge 
+scaling potential in Microsoft Azure with Azure Kubernetes Service.
+
+The architecture of the solution is given at the diagram. 
+
+Steps of the solutions are listed below.
+
+##### Clone Remote Repo
+Repo is cloned from the remote origin with a PAT and placed in a temp directory.
+
+##### Prepare Containers
+Containers are prepared locally.
+
+##### Creating Azure Resources
+Azure resources are created with Azure CLI: 
+- Resource Group
+- Azure Container Registry
+- Azure Kubernetes Service
+
+##### Push Containers into ACR
+After authenticating in ACR prepared images are pushed to the newly created ACR.
+
+##### Attach ACR to AKS
+With `kubectl` local configuration is set up and ACR is attached to AKS in order to serve as a source of images for 
+future containers launching.
+
+##### Manifest Apply
+
+Manifests for services and deployments are applied to AKS with `kubectl apply -f <my-manifest>.yaml`
 
 ### Local Solution 💻
 
@@ -60,6 +85,8 @@ Actions that are performed:
 Then the website can be accessed [locally](http://localhost:8080/swagger-ui/index.html)
 
 ## Notes and Ideas 💡
+
+[AKS Core Concepts](https://learn.microsoft.com/en-us/azure/aks/core-aks-concepts)
 
 [Deploy AKS with CLI](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli)
 
