@@ -1,6 +1,7 @@
 # Notes
 
 ## Task
+
 Java backend repository
 https://gitlab.com/gcorpcity122/backend-application
 For this backend, a PostgreSQL database is required (version 12 is acceptable).
@@ -21,15 +22,15 @@ A successful result will be the opening of the application's Swagger: http://loc
 
 Setup project localy
 
-## Solution 🧩
+## 🧩 Solution
 
 The task is solved in two variations: local setup and Microsoft Azure
 
-### Cloud-based Solution
+### ☁️ Cloud-based Solution
 
 `sh solution.azure.sh`
 
-#### Description 📝
+#### 📝 Description
 
 ![task3_diagram](../images/task3_diagram.png)
 
@@ -63,16 +64,16 @@ future containers launching.
 
 Manifests for services and deployments are applied to AKS with `kubectl apply -f <my-manifest>.yaml`
 
-### Local Solution 💻
+### 💻 Local Solution
 
 (make sure to add your PAT as it's mentioned at pat.token.default)
 
 `sh solution.local.sh`
 
-#### Cleanup 🧹
+#### 🧹 Cleanup
 `rm -rf $TEMP_DIR`
 
-#### Description 📝
+#### 📝 Description
 
 Actions that are performed:
 1. get PAT from file
@@ -84,7 +85,7 @@ Actions that are performed:
 
 Then the website can be accessed [locally](http://localhost:8080/swagger-ui/index.html)
 
-## Notes and Ideas 💡
+## 💡 Notes and Ideas
 
 [AKS Core Concepts](https://learn.microsoft.com/en-us/azure/aks/core-aks-concepts)
 
