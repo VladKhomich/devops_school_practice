@@ -5,6 +5,11 @@ REPO_DIR="$TEMP_DIR/app"
 REPO_URL="gitlab.com/gcorpcity122/backend-application"
 GIT_USER_NAME="vladislav.builder"
 
+#compose
+DB_NAME="mydatabase"
+DB_USERNAME="myuser"
+DB_PASSWORD="password123"
+
 # azure
 RESOURCE_GROUP="devopsschool3"
 LOCATION="polandcentral"
@@ -17,5 +22,4 @@ DB_IMAGE="postgres:13"
 DB_IMAGE_NAME="my_db"
 PUBLIC_DB_IMAGE="$ACR_NAME.azurecr.io/$DB_IMAGE_NAME:latest"
 DNS_LABEL="devopsschool3"
-CONTAINER_NAME="devopsschool2"
 TEMPLATE_FILE="template.json"

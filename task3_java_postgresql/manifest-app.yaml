@@ -29,15 +29,15 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: devopsschoolacr.azurecr.io/task3_java_postgresql-java-app:latest
+          image: ${PUBLIC_IMAGE}
           ports:
             - containerPort: 8080
           env:
             - name: QA_COURSE_01_RDS_DB_HOST
               value: "postgres-service"
             - name: QA_COURSE_01_RDS_DB_NAME
-              value: "mydatabase"
+              value: ${DB_NAME}
             - name: QA_COURSE_01_RDS_USERNAME
-              value: "myuser"
+              value: ${DB_USERNAME}
             - name: QA_COURSE_01_RDS_PASSWORD
-              value: "password123"
+              value: ${DB_PASSWORD}

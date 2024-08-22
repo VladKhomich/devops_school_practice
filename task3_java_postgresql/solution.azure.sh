@@ -23,16 +23,15 @@ check_image_ready() {
 
 az group create --name $RESOURCE_GROUP --location $LOCATION --tags $TAGS
 az acr create --resource-group $RESOURCE_GROUP --name $ACR_NAME --sku Basic
-#az acr credential show --name devopsschoolacr
 az acr login --name $ACR_NAME
 az acr update -n $ACR_NAME --admin-enabled true
 docker tag $IMAGE_NAME $PUBLIC_IMAGE
 docker push $PUBLIC_IMAGE
 
+# prepare db image
 docker pull $DB_IMAGE
 docker tag $DB_IMAGE $PUBLIC_DB_IMAGE 
 docker push $PUBLIC_DB_IMAGE
-
 
 az acr credential show --name devopsschoolacr
 az acr login --name $ACR_NAME
@@ -45,11 +44,21 @@ if check_image_ready; then
   kubectl config unset "users.clusterUser_${RESOURCE_GROUP}_${AKS_NAME}"
   kubectl config unset users.clusterUser_$AKS_NAME
   az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME
-  kubectl apply -f manifest-postgres.yaml
-  kubectl apply -f manifest-app.yaml  
+  
+  # prepare environment to substitute variables in manifests
+  export PUBLIC_IMAGE=$PUBLIC_IMAGE
+  export PUBLIC_DB_IMAGE=$PUBLIC_DB_IMAGE
+  export DB_NAME=$DB_NAME
+  export DB_USERNAME=$DB_USERNAME
+  export DB_PASSWORD=$DB_PASSWORD
+  envsubst < manifest-app.yaml | kubectl apply -f -
+  envsubst < manifest-postgres.yaml | kubectl apply -f -
+  echo "done successfully "
 else
   echo "deployment failed because the image is not ready at ACR"
 fi
 
 # cleanup (remove RG)
 # az group delete --name $RESOURCE_GROUP
+
+# try to include parameters

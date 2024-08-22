@@ -31,7 +31,7 @@ if [ $LOCAL_RUN != "run" ]; then
 fi
 
 if [ $LOCAL_RUN == "run" ]; then
-  docker-compose up --build
+  docker-compose --env-file "./parameters.sh" up --build
 fi
 
 # clean up (remove temp directory)

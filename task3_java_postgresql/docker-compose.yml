@@ -5,9 +5,9 @@ services:
     image: postgres:13
     container_name: postgres-db
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -25,9 +25,9 @@ services:
     networks:
       - my_network
     environment:
-      QA_COURSE_01_RDS_DB_NAME: mydatabase
-      QA_COURSE_01_RDS_USERNAME: myuser
-      QA_COURSE_01_RDS_PASSWORD: mypassword
+      QA_COURSE_01_RDS_DB_NAME: ${DB_NAME}
+      QA_COURSE_01_RDS_USERNAME: ${DB_USERNAME}
+      QA_COURSE_01_RDS_PASSWORD: ${DB_PASSWORD}
       QA_COURSE_01_RDS_DB_HOST: "postgres"
 
 volumes:

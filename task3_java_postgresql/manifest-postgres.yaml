@@ -14,16 +14,16 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: devopsschoolacr.azurecr.io/my_db:latest
+          image: ${PUBLIC_DB_IMAGE}
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: "myuser"
+              value: ${DB_USERNAME}
             - name: POSTGRES_PASSWORD
-              value: "password123"
+              value: ${DB_PASSWORD}
             - name: POSTGRES_DB
-              value: "mydatabase"
+              value: ${DB_NAME}
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
           volumeMounts:
