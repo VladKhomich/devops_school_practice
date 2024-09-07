@@ -7,14 +7,13 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
 sudo gitlab-runner start
 
-sudo gitlab-runner register \
+gitlab-runner register \
   --non-interactive \
   --url "https://gitlab.com" \
   --registration-token $GITLAB_RUNNER_TOKEN \
   --description "My GitLab Runner" \
-  --executor "shell" \
-  --tag-list "shell,azure" \
+  --executor shell \
   --run-untagged="true" \
   --locked="false"
 
-gitlab-runner run
+nohup gitlab-runner run > gitlab-runner.log 2>&1 &

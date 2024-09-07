@@ -14,6 +14,7 @@ VM_NAME=${MAINSCOPE}gitlabrunnervm
 # create RG
 az group create --name $RESOURCE_GROUP --location $LOCATION
 SP_OUTPUT=$(az ad sp create-for-rbac --scopes subscriptions/$SUBSCRIPTION_ID --name $SERVICE_PRINCIPIAL_NAME --role contributor)
+echo $SP_OUTPUT >> secrets.sp 
 
 # create SP with contributor role
 SERVICE_PRINCIPIAL_ID=$(echo $SP_OUTPUT | grep -o '"appId": "[^"]*' | sed 's/"appId": "//')
@@ -53,3 +54,13 @@ az deployment group create \
                scriptUri="https://${STORAGE_ACCOUNT}.blob.core.windows.net/${SA_CONTAINER}/${RUNNER_SCRIPT_FILE}" \
                scriptFileName="${RUNNER_SCRIPT_FILE}" \
                customData="#cloud-config\nruncmd:\n  - echo 'Custom data script executed'"
+               
+               
+   #configure JIT access to VM
+   az security vm jit-policy set --resource-group $RESOURCE_GROUP --vm-name $VM_NAME --ports 22=22 --max-request-access-duration PT1H
+   
+   #configure JIT access to VM
+   vm_ip=$(az vm show --resource-group $RESOURCE_GROUP --name $VM_NAME --show-details --query publicIps -o tsv)
+   
+   #connect to newly created VM via SSH
+   ssh adminUser@$vm_ip
