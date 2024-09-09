@@ -105,7 +105,7 @@ Performs the static code analysis with Sonarqube plugin for Maven. Posts the res
 ## Create Service Principal
 
 Instead of using credentials in CI/CD process it's better to use a dedicated service with restricted permissions: 
-Azure Service Principal. In order to 
+Azure Service Principal.
 
 [Reference](https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash)
 
