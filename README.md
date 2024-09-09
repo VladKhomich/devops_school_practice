@@ -13,3 +13,7 @@
 ## [3. Java API with PostgreSQL in Kubernetes](./task3_java_postgresql/README.md)
 
 ![task3_diagram](./images/task3_diagram.png)
+
+## [4. GitLab CI/CD to Azure Kubernetes Service](./task4_gitlab_ci/README.md)
+
+![task3_diagram](./images/task4_diagram.png)
