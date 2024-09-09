@@ -1,0 +1,10 @@
+MAINSCOPE=devopsschool4
+RESOURCE_GROUP=$MAINSCOPE
+LOCATION=polandcentral
+SERVICE_PRINCIPIAL_NAME=gitlab-ci-service-principial
+STORAGE_ACCOUNT=${MAINSCOPE}sa
+SA_CONTAINER=${MAINSCOPE}sacontainer
+RUNNER_SCRIPT_TEMPLATE_FILE=runner_install.template.sh
+RUNNER_SCRIPT_FILE=runner_install.sh
+VM_TEMPLATE_FILE=vm_template.json
+VM_NAME=${MAINSCOPE}gitlabrunnervm
