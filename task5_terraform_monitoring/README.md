@@ -15,6 +15,8 @@ The task is solved based on Microsoft Azure. The applied solution is an extensio
 - Grafana and Prometheus are set up
 - Kubernetes Cluster and other resources are created not via Azure CLI but with terraform.
 
+![Task5_solution](../images/task5_diagram.png)
+
 ### ☁️ Cloud-based Solution
 
 Two steps are required:
