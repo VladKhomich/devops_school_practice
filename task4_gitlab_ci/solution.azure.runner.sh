@@ -1,5 +1,5 @@
 source ./secrets
-source ./parameters
+source ./parameters.sh
 
 # create RG
 az group create --name $RESOURCE_GROUP --location $LOCATION

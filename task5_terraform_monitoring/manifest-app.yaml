@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+spec:
+  selector:
+    app: java-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: java-app
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      containers:
+        - name: java-app
+          image: ${PUBLIC_IMAGE}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: QA_COURSE_01_RDS_DB_HOST
+              value: "postgres-service"
+            - name: QA_COURSE_01_RDS_DB_NAME
+              value: ${DB_NAME}
+            - name: QA_COURSE_01_RDS_USERNAME
+              value: ${DB_USERNAME}
+            - name: QA_COURSE_01_RDS_PASSWORD
+              value: ${DB_PASSWORD}
