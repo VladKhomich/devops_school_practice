@@ -16,4 +16,8 @@
 
 ## [4. GitLab CI/CD to Azure Kubernetes Service](./task4_gitlab_ci/README.md)
 
-![task3_diagram](./images/task4_diagram.png)
+![task4_diagram](./images/task4_diagram.png)
+
+## [5. Terraform and Monitoring for Kubernetes](./task5_terraform_monitoring/README.md)
+
+![task5_diagram](./images/task5_diagram.png)
